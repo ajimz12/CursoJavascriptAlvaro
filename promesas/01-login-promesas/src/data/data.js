@@ -9,3 +9,10 @@ export const usersLogin = {
   username2: { password: "5678", access: [] },
   username3: { password: "9012", access: [] },
 };
+
+export const usersList = [
+  {username: "Paco", age: 20},
+  {username: "Fran", age: 40},
+  {username: "Maria", age: 25},
+  {username: "Manolo", age: 29},
+]
