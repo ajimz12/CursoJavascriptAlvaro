@@ -23,7 +23,6 @@ export const saveLocalStorage = (arrayObjetos) => {
     : localStorage.setItem("arrayObjects", JSON.stringify(arrayObjetos));
   message ? console.log(message) : console.log("Guardado correctamente");
 
-  // Cargar objeto del locastorage y print en el console.log
   localStorage.hasOwnProperty("arrayObjects")
     ? console.log(JSON.parse(localStorage.getItem("arrayObjects")))
     : console.log("La clave no existe");
@@ -154,14 +153,8 @@ export const validateObject = (arrayObjetos) => {
 
   if (validos.length) {
     localStorage.setItem("objetosValidos", JSON.stringify(validos));
-    console.log("Objetos válidos guardados en localStorage");
+    console.log("Objetos guardados en localStorage");
   }
-
-  if (invalidos.length) {
-    return false;
-  }
-
-  return true;
 };
 
 // 10. Actualización Condicional en LocalStorage con Funciones: Crea una

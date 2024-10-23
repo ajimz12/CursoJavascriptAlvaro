@@ -1,3 +1,4 @@
+import { arrayObjetos } from "./data/data";
 import {
   changeLocalStorageAge,
   checkLocalStorage,
@@ -9,13 +10,6 @@ import {
   saveNewObjects,
   validateObject,
 } from "./helpers/scripts";
-
-const arrayObjetos = [
-  { nombre: "Alvaro", edad: 10 },
-  { nombre: "Paco", edad: 20 },
-  { nombre: "Maria", edad: 30 },
-  { nombre: "Manolo", edad: 40 },
-];
 
 // ------------ Testing de funcion saveLocalStorage -----------
 
@@ -53,5 +47,3 @@ const arrayObjetos = [
 
 // 10
 saveNewObjects(arrayObjetos);
-
-
