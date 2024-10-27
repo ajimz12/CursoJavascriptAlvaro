@@ -3,6 +3,7 @@
 
 const urlApi = import.meta.env.VITE_API_URL;
 const urlApiSW = import.meta.env.VITE_API_URL_SW;
+const imageBaseUrl = import.meta.env.VITE_IMAGE_SW;
 
 // export const fetchingData = () => {
 //   const response = fetch(urlemail});
@@ -56,30 +57,73 @@ export const getImageUrl = (url) => {
  * @description Funcion que hace peticion a la API de starWars y devuelve nombre y altura
  * @returns {Promise<Array>}
  */
-export const fetchStarWarsPromise = () => {
-  return fetch(urlApiSW)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Error al obtener los datos de la API");
-      }
-      return response.json();
-    })
-    .catch((error) => console.error(error));
-};
+// export const fetchStarWarsPromise = () => {
+//   return fetch(urlApiSW)
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Error al obtener los datos de la API");
+//       }
+//       return response.json();
+//     })
+//     .catch((error) => console.error(error));
+// };
 
 /**
  * @description Funcion que hace peticion a la API de starWars y devuelve nombre y altura
  * @returns {Promise<Array>}
  */
-export const fetchStarWarsAsync = async () => {
+export async function fetchStarWarsAsync() {
+  const loadingDiv = document.createElement("div");
+  loadingDiv.textContent = "Loading...";
+  document.getElementById("app").appendChild(loadingDiv);
   try {
-    const response = await fetch(urlApiSW);
-    if (!response.ok) {
-      throw new Error("Error al obtener los datos de la API");
+    let allCharacters = [];
+    let currentPage = 1;
+    let hasNextPage = true;
+
+    while (hasNextPage) {
+      const response = await fetch(`${urlApiSW}?page=${currentPage}`);
+      if (!response.ok) {
+        throw new Error("Error al obtener los datos de la API");
+      }
+
+      const data = await response.json();
+      allCharacters = allCharacters.concat(data.results);
+      hasNextPage = data.next !== null;
+      currentPage++;
     }
 
-    return await response.json();
+    // Mostrar personajes
+    console.log(allCharacters);
+
+    // Guardar en el localStorage
+    localStorage.setItem("starWarsCharacters", JSON.stringify(allCharacters));
+    // Renderizar los datos
+    renderCharacter(allCharacters);
   } catch (error) {
-    throw new Error("Error al realizar la peticion asincrona");
+    throw new Error("Error al realizar la peticion a la API");
   }
-};
+}
+
+export async function renderCharacter(characters) {
+  // DIV para enderezar toda la data
+  const appDiv = document.getElementById("app");
+  appDiv.innerHTML = "";
+  characters.forEach((character, index) => {
+    // DIV que va a contener la imagen, el nombre (h2) y la altura (p)
+    let characterId = index + 1;
+    const characterElementDiv = document.createElement("div");
+    characterElementDiv.className = "character-card";
+    characterElementDiv.innerHTML = `
+    <div class="card-content">
+    <h2>${character.name}</h2>
+    <p>Altura: ${character.height} cm</p>
+    </div>
+    <div class="card-image">
+    <img src="${imageBaseUrl}${characterId}.jpg" alt="${character.name}">
+    </div>
+    `;
+    appDiv.appendChild(characterElementDiv);
+  });
+}
+

@@ -1,0 +1,19 @@
+{
+  "name": "04-fetching-exercises",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "examen": "json-server --watch src/data/data.json --port 3000"
+  },
+  "devDependencies": {
+    "vite": "^5.4.9"
+  },
+  "dependencies": {
+    "json-server": "^1.0.0-beta.3"
+  }
+}

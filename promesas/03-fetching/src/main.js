@@ -1,10 +1,4 @@
-import {
-  fetchingDataPromise,
-  fetchingDataAsyncAway,
-  fetchStarWarsPromise,
-  fetchStarWarsAsync,
-  getImageUrl,
-} from "./helpers/script";
+import { fetchStarWarsAsync } from "./helpers/script";
 
 // fetchingDataPromise()
 //   .then((users) => {
@@ -24,16 +18,16 @@ import {
 //   })
 //   .catch((error) => console.error(error));
 
-fetchStarWarsPromise()
-  .then((data) => {
-    data.results.forEach(({ name, height, url }) => {
-      const characterId = getImageUrl(url);
-      const imageUrl = `https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg`;
+// fetchStarWarsPromise()
+//   .then((data) => {
+//     data.results.forEach(({ name, height, url }) => {
+//       const characterId = getImageUrl(url);
+//       const imageUrl = `https://starwars-visualguide.com/assets/img/characters/${characterId}.jpg`;
 
-      console.table({ name, height, imageUrl });
-    });
-  })
-  .catch((error) => console.error(error));
+//       console.table({ name, height, imageUrl });
+//     });
+//   })
+//   .catch((error) => console.error(error));
 
 // fetchStarWarsAsync()
 //   .then((data) => {
@@ -42,3 +36,7 @@ fetchStarWarsPromise()
 //     });
 //   })
 //   .catch((error) => console.error(error));
+
+document
+  .getElementById("fetch-characters-async")
+  .addEventListener("click", fetchStarWarsAsync);
