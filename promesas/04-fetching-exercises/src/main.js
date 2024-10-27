@@ -7,17 +7,10 @@ for (let i = 1; i < 20; i++) {
   arrayRandomNumbers.push(getRandomNumber(1, 10));
 }
 
-arrayDataJSON = [];
-
-arrayRandomNumbers.forEach((id) => {
-    
-});
-
-fetchingDataJSON(urlApi, 1)
-  .then((user) => {
-    const { username, address, company } = user;
-    const { city } = address;
-    const { name } = company;
-    console.table({ username, city, name });
-  })
-  .catch((err) => console.error(err));
+document
+  .getElementById("fetch-users-async")
+  .addEventListener("click", async () => {
+    for (const id of arrayRandomNumbers) {
+      await fetchingDataJSON(urlApi, id);
+    }
+  });
