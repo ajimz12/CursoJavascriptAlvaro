@@ -13,11 +13,12 @@ export async function fetchingDataJSON(url, userID) {
       throw new Error(`Error al obtener los datos: ${response.status}`);
     }
     const data = await response.json();
-    allUsers = JSON.parse(localStorage.getItem("users"));
+
     allUsers.push(data);
     console.log(allUsers);
 
     localStorage.setItem("users", JSON.stringify(allUsers));
+
     renderUsers(allUsers);
   } catch (error) {
     throw new Error(`Error al obtener los datos: ${error.message}`);
