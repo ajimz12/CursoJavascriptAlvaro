@@ -1,0 +1,114 @@
+{
+  "productos": [
+    {
+      "id": 1,
+      "nombre": "Camiseta",
+      "precio": 19.99,
+      "stock": {
+        "cantidad": 50,
+        "ubicacion": "Almacen A"
+      },
+      "categoria": {
+        "nombre": "Ropa",
+        "subcategorias": ["casual", "deportiva"]
+      },
+      "detalles": {
+        "material": "Algodon",
+        "tallas disponibles": ["S", "M", "XL"],
+        "colores": ["Rojo", "Azul", "Amarillo"]
+      }
+    },
+    {
+      "id": 2,
+      "nombre": "Pantalón",
+      "precio": 29.99,
+      "stock": {
+        "cantidad": 40,
+        "ubicacion": "Almacen B"
+      },
+      "categoria": {
+        "nombre": "Ropa",
+        "subcategorias": ["casual", "formal"]
+      },
+      "detalles": {
+        "material": "Denim",
+        "tallas disponibles": ["S", "M", "L", "XL"],
+        "colores": ["Azul", "Negro"]
+      }
+    },
+    {
+      "id": 3,
+      "nombre": "Sudadera",
+      "precio": 39.99,
+      "stock": {
+        "cantidad": 30,
+        "ubicacion": "Almacen A"
+      },
+      "categoria": {
+        "nombre": "Ropa",
+        "subcategorias": ["deportiva", "invierno"]
+      },
+      "detalles": {
+        "material": "Poliéster",
+        "tallas disponibles": ["M", "L", "XL"],
+        "colores": ["Gris", "Negro"]
+      }
+    },
+    {
+      "id": 4,
+      "nombre": "Zapatos",
+      "precio": 49.99,
+      "stock": {
+        "cantidad": 25,
+        "ubicacion": "Almacen C"
+      },
+      "categoria": {
+        "nombre": "Calzado",
+        "subcategorias": ["casual", "deportivo"]
+      },
+      "detalles": {
+        "material": "Cuero",
+        "tallas disponibles": [39, 40, 41, 42],
+        "colores": ["Negro", "Marrón"]
+      }
+    },
+    {
+      "id": 5,
+      "nombre": "Gorra",
+      "precio": 9.99,
+      "stock": {
+        "cantidad": 60,
+        "ubicacion": "Almacen B"
+      },
+      "categoria": {
+        "nombre": "Accesorios",
+        "subcategorias": ["casual", "verano"]
+      },
+      "detalles": {
+        "material": "Algodon",
+        "tallas disponibles": ["Única"],
+        "colores": ["Negro", "Blanco", "Rojo"]
+      }
+    },
+    {
+      "id": 6,
+      "nombre": "Chaqueta",
+      "precio": 69.99,
+      "stock": {
+        "cantidad": 15,
+        "ubicacion": "Almacen A"
+      },
+      "categoria": {
+        "nombre": "Ropa",
+        "subcategorias": ["invierno", "formal"]
+      },
+      "detalles": {
+        "material": "Cuero sintético",
+        "tallas disponibles": ["M", "L", "XL"],
+        "colores": ["Negro", "Marrón"]
+      }
+    }
+  ],
+
+  "ventas": []
+}

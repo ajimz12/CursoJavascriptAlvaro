@@ -1,13 +1,13 @@
-import { fetchingDataPromise, fetchUserData } from "./helpers/script";
+import { getAllProducts } from "./helpers/a";
+import { generateProductsMap } from "./helpers/ejercicio01";
 
-// fetchUserData()
-// .then((data) => {
-//     console.log(data);
-// })
-// .catch(err => console.log(err));
+const urlProducts = `${import.meta.env.VITE_URL_API}/productos`;
 
-fetchingDataPromise()
-.then((data) => {
-    console.log(data);
-})
-.catch(err => console.log(err));
+const dataProducts = getAllProducts(urlProducts)
+  .then((productos) => productos)
+  .catch((error) => console.log(error));
+
+const map = generateProductsMap(dataProducts);
+console.log(map);
+
+localStorage.setItem("mapProductos", JSON.stringify([...map]));
