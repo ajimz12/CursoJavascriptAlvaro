@@ -35,6 +35,6 @@ export const getPokemonPromiseAll = async (arrayPokemonsName) => {
   }
 };
 
-export const getPokemonPromiseAllSettled = async (arrayPokemonsName) => {
+// export const getPokemonPromiseAllSettled = async (arrayPokemonsName) => {
   
-};
+// };
