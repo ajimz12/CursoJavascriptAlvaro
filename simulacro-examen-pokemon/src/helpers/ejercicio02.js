@@ -1,40 +1,90 @@
 /**
  * @author Alvaro
+ * @description Ejercicio 02
  */
 
-const urlApi = import.meta.env.VITE_URL_API;
+import { getAllPokemons } from "./getAllPokemon";
 
-const arrayPokemons = [
-  "Pikachu",
-  "Charmander",
-  "Bulbasaur",
-  "Squirtle",
-  "Mewtwo",
-];
+const urlCarrito = `${import.meta.env.VITE_URL_API}/carrito`;
 
-// Dado un array de nombres, usar PromiseAll para obtener de cada pokemon la habilidad que tiene la puntuacion mas alta.
-export const getPokemonPromiseAll = async (arrayPokemonsName) => {
+export const addPokemonToCart = async (urlApi, idPokemon) => {
   try {
-    const response = await fetch(urlApi);
-    if (!response.ok) throw new Error("Error al obtener los pokemons");
-    const dataPokemon = await response.json();
+    const pokemons = await getAllPokemons(urlApi);
+    const response = await fetch(urlCarrito);
+    if (!response.ok) throw new Error("Error al obtener datos del carrito");
 
-    const promises = arrayPokemonsName.map(async (name) => {
-      const findPokemon = dataPokemon.find((pokemonData) => {
-        pokemonData.nombre.toLowerCase() === name.toLowerCase();
-      });
+    const carrito = await response.json();
 
-      if (!findPokemon) throw new Error("Error al obtener el pokemon");
-    //   const response = await fetch(`${urlApi}pokemons/${findPokemon.id}`);
+    const pokemonEnCarrito = carrito.items.find(
+      (item) => item.id === idPokemon
+    );
+
+    if (pokemonEnCarrito) {
+      pokemonEnCarrito.cantidad += 1;
+      pokemonEnCarrito.precioTotal =
+        pokemonEnCarrito.precioUnitario * pokemonEnCarrito.cantidad;
+
+      carrito.totalCarrito += pokemonEnCarrito.precioUnitario;
+
+      console.log(
+        `La cantidad del Pokémon ${pokemonEnCarrito.nombre} ha sido aumentada.`
+      );
+    } else {
+      const pokemon = pokemons.find((pokemon) => pokemon.id === idPokemon);
+      if (!pokemon) {
+        console.error(`No se encontró el Pokémon con ID ${idPokemon}`);
+        return;
+      }
+
+      const nuevoItem = {
+        id: pokemon.id,
+        nombre: pokemon.nombre,
+        cantidad: 1,
+        precioUnitario: pokemon.precio,
+        precioTotal: pokemon.precio,
+      };
+
+      carrito.items.push(nuevoItem);
+      carrito.totalCarrito += nuevoItem.precioTotal;
+
+      console.log(`El Pokémon ${pokemon.nombre} ha sido agregado al carrito.`);
+    }
+
+    const actualizarCarrito = await fetch(urlCarrito, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(carrito),
     });
 
-    const resolvedPromises = await Promise.all(promises);
-    console.log(resolvedPromises);
+    if (!actualizarCarrito.ok)
+      throw new Error("Error al actualizar el carrito");
   } catch (error) {
-    throw new Error(error);
+    console.error("Error:", error);
   }
 };
 
-// export const getPokemonPromiseAllSettled = async (arrayPokemonsName) => {
-  
-// };
+export const deletePokemon = async (urlApi, idPokemon) => {
+  try {
+    const allPokemon = await getAllPokemons(urlApi);
+
+    const pokemonToDelete = allPokemon.find(
+      (pokemon) => pokemon.id === idPokemon
+    );
+
+    if (pokemonToDelete) {
+      const response = await fetch(`${urlApi}/${idPokemon}`, {
+        method: "DELETE",
+      });
+      if (!response.ok) {
+        console.log("No se ha podido eliminar al pokemon");
+      }
+      console.log("Pokemon eliminado con exito");
+    }
+  } catch (err) {
+    console.log(err);
+  }
+};
+
+

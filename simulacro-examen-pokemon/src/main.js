@@ -3,27 +3,31 @@
  * @description Ejercicios del Examen
  */
 
-import {
-  createPokemon,
-  deletePokemon,
-  getAllPokemons,
-  updatePokemon,
-} from "./helpers/ejercicio01";
+import { getAllPokemonMap } from "./helpers/ejercicio01";
+import { addPokemonToCart, deletePokemon } from "./helpers/ejercicio02";
+import { getByHabilidad } from "./helpers/ejercicio03";
 
 const urlApi = import.meta.env.VITE_URL_API;
 
 const init = async () => {
-  // -------------------- Ejercicio 01 ---------------
-  // const ejercicio01 = await getAllPokemons(urlApi);
-  // console.log("Ejercicio 1 ->", ejercicio01);
+  // --------- Ejercicio 1 ---------
+  // const allPokemonMap = await getAllPokemonMap(`${urlApi}/pokemons`);
+  // localStorage.setItem("allPokemon", JSON.stringify([...allPokemonMap]));
+  // console.log("Ejercicio 1 --> ", allPokemonMap);
 
-  // await deletePokemon(urlApi, "Squirtle");
+  // ------- Ejercicio 2 --------
 
-  // await updatePokemon(urlApi, "Pikachu");
+  // await addPokemonToCart(`${urlApi}/pokemons`, "10");
+  // await deletePokemon(urlApi, "3");
 
-  // await createPokemon(urlApi, pokemon);
+  // ------- Ejercicio 3 -----
+  const habilidades = ["Impactrueno", "Vuelo", "Latigazo"];
 
-  // -------------------- Ejercicio 02 ---------------
+  const habilidadPokemons = getByHabilidad(`${urlApi}/pokemons`, habilidades);
+
+  habilidadPokemons.forEach((pokemon, id) => {
+    console.log(`ID: ${id}, Nombre: ${pokemon.nombre}`);
+  });
 };
 
 init();
